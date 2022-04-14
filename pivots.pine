@@ -1,0 +1,36 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © deary
+
+//@version=5
+indicator("My script", overlay=true)
+src = close
+pdo = request.security(syminfo.tickerid, 'D', open)
+
+_close = 346.35
+_high = 347.43
+_low = 339.06
+
+pivot = (_high + _close + _low) / 3
+r1 = 2* pivot - _low
+r2 = pivot + (_high - _low)
+r3 = r1 + (_high - _low)
+
+s1 = 2*pivot - _high
+s2 = pivot - (_high - _low)
+s3 = r1 - (_high - _low)
+
+hline(r3, linestyle=hline.style_solid, color=color.blue, title="r3")
+hline((r3 + r2) / 2, linestyle = hline.style_dashed, color=color.blue)
+hline(r2, linestyle=hline.style_solid, color=color.blue, title="r2")
+hline((r2 + r1) / 2, linestyle = hline.style_dashed, color=color.blue)
+hline(r1, linestyle=hline.style_solid, color=color.blue, title="r1")
+hline((r1 + pivot) / 2, linestyle = hline.style_dashed, color=color.blue)
+hline(pivot, linestyle=hline.style_solid, color=color.orange, title="pivot")
+hline((s1 + pivot) / 2, linestyle = hline.style_dashed, color=color.blue)
+hline(s1, linestyle=hline.style_solid, color=color.blue, title="s1")
+hline((s1 + s2) / 2, linestyle = hline.style_dashed, color=color.blue)
+hline(s2, linestyle=hline.style_solid, color=color.blue, title="s2")
+hline((s2 + s3) / 2, linestyle = hline.style_dashed, color=color.blue)
+hline(s3, linestyle=hline.style_solid, color=color.blue, title="s3")
+plot(src)
+
